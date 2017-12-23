@@ -1,7 +1,9 @@
 class Client < ApplicationRecord
   include Fae::BaseModelConcern
-  
-  validates :name, presence: true
+
+  has_many :campaign_clients, dependent: :destroy
+  has_many :campaigns, through: :campaign_clients
+
   validates :phone, presence: true
   validates :email,
     uniqueness: true,
@@ -14,6 +16,5 @@ class Client < ApplicationRecord
   def fae_display_field
     name
   end
-
 
 end
